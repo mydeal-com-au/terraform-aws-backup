@@ -23,7 +23,7 @@ resource "aws_backup_vault_lock_configuration" "backup_vault_lock" {
 # AWS Backup plan
 resource "aws_backup_plan" "backup_plan" {
   count = var.enabled ? 1 : 0
-  name  = var.name
+  name  = "plan-${var.name}"
   dynamic "rule" {
     for_each = var.rules
     content {
@@ -66,7 +66,7 @@ resource "aws_backup_plan" "backup_plan" {
 resource "aws_backup_selection" "tag" {
   count = var.enabled ? length(var.selection_resources) == 0 && var.account_type == local.account_type.workload ? 1 : 0 : 0
 
-  name         = "selection-${var.name}-backup"
+  name         = "selection-${var.name}"
   iam_role_arn = aws_iam_role.backup_role[0].arn
 
   plan_id = aws_backup_plan.backup_plan[0].id
