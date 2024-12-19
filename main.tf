@@ -2,7 +2,7 @@ resource "aws_backup_vault" "backup_vault" {
   name        = "vault-${var.name}"
   kms_key_arn = var.vault_kms_key_arn
   tags = {
-    Name = "${var.name}-vault"
+    Name = "${var.name}"
   }
 }
 
