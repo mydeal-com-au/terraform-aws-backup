@@ -66,7 +66,7 @@ resource "aws_backup_selection" "backup_selection" {
 
 # AWS Backup vault notification
 resource "aws_backup_vault_notifications" "default" {
-  count               = var.vault_notification_sns_topic_arn != "" ? 1 : 0
+  count               = try(var.enable_vault_notification, false) ? 1 : 0
   backup_vault_name   = aws_backup_vault.backup_vault.name
   sns_topic_arn       = var.vault_notification_sns_topic_arn
   backup_vault_events = var.backup_vault_events

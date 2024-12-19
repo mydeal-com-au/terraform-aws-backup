@@ -19,6 +19,12 @@ variable "vault_policy" {
   default     = ""
 }
 
+variable "enable_vault_notification" {
+  description = "enable vault notification"
+  type        = bool
+  default     = false
+}
+
 variable "vault_notification_sns_topic_arn" {
   description = "he Amazon Resource Name (ARN) that specifies the topic for a backup vaults events"
   type        = string
