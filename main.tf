@@ -1,5 +1,5 @@
 resource "aws_backup_vault" "backup_vault" {
-  name        = "${var.name}-vault"
+  name        = "vault-${var.name}"
   kms_key_arn = var.vault_kms_key_arn
   tags = {
     Name = "${var.name}-vault"
@@ -66,7 +66,7 @@ resource "aws_backup_plan" "backup_plan" {
 resource "aws_backup_selection" "tag" {
   count = var.enabled ? length(var.selection_resources) == 0 && var.account_type == local.account_type.workload ? 1 : 0 : 0
 
-  name         = "${var.name}-backup-tag"
+  name         = "selection-${var.name}-backup"
   iam_role_arn = aws_iam_role.backup_role[0].arn
 
   plan_id = aws_backup_plan.backup_plan[0].id
