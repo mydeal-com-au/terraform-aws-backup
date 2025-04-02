@@ -60,7 +60,7 @@ variable "rule_completion_window" {
 variable "rule_lifecycle_cold_storage_after" {
   description = "Specifies the number of days after creation that a recovery point is moved to cold storage"
   type        = number
-  default     = 30
+  default     = null
 }
 
 variable "rule_lifecycle_delete_after" {
