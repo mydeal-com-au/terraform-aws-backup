@@ -50,6 +50,7 @@ resource "aws_backup_plan" "backup_plan" {
 
 # AWS Backup selection - tag
 resource "aws_backup_selection" "backup_selection" {
+  count        = length(var.selection_resources) == 0 ? 1 : 0
   name         = "selection-${var.name}-backup"
   iam_role_arn = aws_iam_role.backup_role.arn
 
@@ -71,6 +72,14 @@ resource "aws_backup_selection" "resources" {
   iam_role_arn = aws_iam_role.backup_role.arn
   plan_id = aws_backup_plan.backup_plan.id
   resources    = var.selection_resources
+
+  selection_tag {
+    type  = var.selection_tag_type
+    key   = var.selection_tag_key
+    value = var.selection_tag_value
+  }
+
+  condition {}
 }
 
 # AWS Backup vault notification
