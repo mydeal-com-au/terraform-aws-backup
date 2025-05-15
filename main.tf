@@ -73,12 +73,6 @@ resource "aws_backup_selection" "resources" {
   plan_id = aws_backup_plan.backup_plan.id
   resources    = var.selection_resources
 
-  selection_tag {
-    type  = var.selection_tag_type
-    key   = var.selection_tag_key
-    value = var.selection_tag_value
-  }
-
   condition {}
 }
 
